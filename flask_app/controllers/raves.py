@@ -88,7 +88,7 @@ def show_rave(id):
             'lng': response.json()['results'][0]['geometry']['location']['lng']
         }
     print(map)
-    return render_template("detail.html",rave=rave,user=user,all_users=all_users,map=map)
+    return render_template("detail.html",rave=rave,user=user,all_users=all_users,map=map,api_key=api_key)
 
 @app.route('/rave/<int:rave_id>/join',methods = ['post'])
 def join(rave_id):
