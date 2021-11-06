@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Register or Login</title>
+    <style>
+        .left, .right{
+            background-color: lightblue;
+            margin-top: 50px;
+            border-radius: 5px;
+        }
+        .btn{
+            margin-top: 15px;
+        }
+        body{
+            background-image:url({{url_for('static', filename='img/1.jpg')}})
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron p-3">
+        <div class="well text-center bg-light">
+            <h1>Rave/Festival Planner</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-sm-evenly">
+            <div class="left col-5 p-5 ">
+                <form action="/register" method="POST">
+                    <h2 class="text-center text-danger">Register</h2>
+                    <div class="text-danger">
+                    {% with messages = get_flashed_messages(category_filter=['register']) %}     
+                        {% if messages %}                            
+                            {% for message in messages %}            
+                                <p>{{message}}</p>                   
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    </div>
+                    <div class="form-group">
+                        <lable for="first_name" class="form-lable">First Name</lable>
+                        <input type="text" name="first_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <lable for="last_name" class="form-lable">Last Name</lable>
+                        <input type="text" name="last_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <lable for="email" class="form-lable">Email</lable>
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <lable for="password" class="form-lable">Password</lable>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <lable for="confirm" class="form-lable">Confirm Password</lable>
+                        <input type="password" name="confirm" class="form-control">
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" value="Register" class="btn btn-danger">
+                    </div>
+                </form>
+            </div>
+            <div class="right col-5 p-5">
+                <form action="/login" method="POST">
+                    <h2 class="text-center text-primary">Login</h2>
+                    <div class="form-group text-danger">
+                        {% with messages = get_flashed_messages(category_filter=['login']) %}     
+                        <!-- declare a variable called messages -->
+                            {% if messages %}                            
+                        <!-- check if there are any messages -->
+                            {% for message in messages %}            
+                        <!-- loop through the messages -->
+                            <p>{{message}}</p>                   
+                        <!-- display each message in a paragraph tag -->
+                                {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="form-group"> 
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <div class="form-group"> 
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" value="Login" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

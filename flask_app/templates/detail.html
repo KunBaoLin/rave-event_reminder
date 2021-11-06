@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rave</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <style>
+        .card{
+            margin-top: 100px;
+            margin-left: 300px;
+            background-color: lightblue;
+            border-radius: 5px;
+            }
+        body{
+            background-image:url({{url_for('static', filename='img/3.jpg')}})
+        }
+    </style>
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 bg-dark text-success">
+        <h1 class="text-center">Welcome {{user.first_name.title()}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/myraves" class='btn btn-danger'>My Raves</a>
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+    </nav>
+    <div class="card col-8 mx-auto my-5">
+        <div class="card-body">
+            <h1 class="text-danger">{{rave.name.title()}}</h1>
+            <p>Where: {{rave.address}},<span id="address">{{rave.city}}</span>,{{rave.state}}</p>
+            <p>Performance Djs:  {{rave.djs}}</p>
+            <p>When:  {{rave.date.strftime('%Y-%m-%d')}}</p>
+            <p>People who wants to go: 
+            {% for users in all_users %}
+            {{users.first_name.title()}}, 
+            {% endfor %}
+            </p>
+        </div>
+    </div>
+    <div class="card col-8 mx-auto my-5">
+        <div id="map" style="width:100%;height: 600px;"></div>
+    </div>
+    <script>
+        let map;
+        function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: {{map.lat}}, lng: {{map.lng}} },
+            zoom: 17,
+            });
+        }
+        </script>    
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlcEmogaXbc1fRqi4pQ7peEQZZpn4ymK0&callback=initMap">
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body{
+            background-image:url({{url_for('static', filename='img/2.jpg')}})
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 bg-dark text-success">
+        <h1 class="text-center">{{user.first_name.title()}}, Lets party!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/myraves" class='btn btn-danger'>My Raves</a>
+            <a href="/new/rave" class="btn btn-primary">Add Rave/Event</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+    </nav>
+    <div class="col-10 mx-auto">
+
+        <table class="table bg-light">
+            <thead>
+                <tr>
+                    <th>Raves/Festival</th>
+                    <th>Performance Djs</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Total People Going</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rave in raves %}
+                <tr>
+                    <td><a href="/rave/{{rave.id}}">{{rave.name.title()}}</a></td>
+                    <td>{{rave.djs}}</td>
+                    <td>{{rave.address}},{{rave.city}},{{rave.state}}</td>
+                    <td>{{rave.date.strftime('%Y-%m-%d')}}</td>
+                    <td>{{rave.joiner | length}}</td>
+                    <td>
+                        {% if rave.id in raves_user_joined %}
+                        <form action="/rave/{{rave.id}}/quit" method="post">
+                            <input type="submit" value="Quit" class="btn btn-success">
+                        </form>
+                        {% else %}
+                        <form action="/rave/{{rave.id}}/join" method="post">
+                            <input type="submit" value="Join" class="btn btn-dark">
+                        </form>
+                        {% endif %}
+                        {% if rave.user_id == session.user_id %}
+                        <a href="/edit/rave/{{rave.id}}" class="btn btn-info">Edit</a>
+                        <form action="/destroy/rave/{{rave.id}}" method="post">
+                            <input type='submit' value='Delete' class="btn btn-danger"></form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

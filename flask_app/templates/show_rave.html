@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bands</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body{
+            background-image:url({{url_for('static', filename='img/6.jpg')}})
+        }
+    </style>
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 bg-dark text-success">
+        <h1 class="text-center">Welcome {{user.first_name.title()}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/new/rave" class="btn btn-warning">Add Rave</a>
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+
+    </nav>
+    <div class="container mx-auto col-5 bg-light">
+        <h1>Manager My Raves</h1>
+        <table class="table table-info">
+            <thead>
+                <tr>
+                    <th>Rave/Festival Names</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rave in all_rave %}
+                <tr>
+                    <td><a href="/rave/{{rave.id}}">{{rave.name.title()}}</a></td>
+                    <td>{{rave.date.strftime('%Y-%m-%d')}}</td>
+                    <td>{{rave.address}},{{rave.city}},{{rave.state}}</td>
+                    <td>
+                        <a href="/edit/rave/{{rave.id}}" class="btn btn-warning">Edit</a>
+                        <form action="/destroy/rave/{{rave.id}}" method="post">
+                            <input type='submit' value='Delete' class="btn btn-danger"></form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/" class="btn bg-primary">Home</a>
+    </div>
+</body>
+</html>

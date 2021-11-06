@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+pymysql = "*"
+flask-bcrypt = "*"
+flask-dotenv = "*"
+requests = "*"
+googlemaps = "*"
+python-dotenv = "*"
+folium = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
