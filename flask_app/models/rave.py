@@ -126,7 +126,7 @@ class Rave:
         if len(rave['address']) == '':
             is_valid = False
             flash("Address cannot blank","rave")
-        if len(rave['city']) < 6:
+        if len(rave['city']) < 4:
             is_valid = False
             flash ("City too short",'rave')
         if rave['date'] ==  '':
