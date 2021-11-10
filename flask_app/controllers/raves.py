@@ -55,7 +55,7 @@ def update_rave(id):
         "id": request.form['id'],
         "name": request.form["name"],
         "djs": request.form["djs"],
-        "adress": request.form["adress"],
+        "address": request.form["address"],
         "city": request.form['city'],
         "state":request.form['state'],
         "date":request.form['date']

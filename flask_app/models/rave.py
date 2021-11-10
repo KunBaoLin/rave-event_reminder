@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from . import user
+from flask_app.models import user
 from datetime import date
 
 class Rave:
@@ -128,7 +128,7 @@ class Rave:
             flash("Address cannot blank","rave")
         if len(rave['city']) < 6:
             is_valid = False
-            flash ("City too short","rave")
+            flash ("City too short",'rave')
         if rave['date'] ==  '':
             is_valid = False
             flash("Please enter a date","rave")
